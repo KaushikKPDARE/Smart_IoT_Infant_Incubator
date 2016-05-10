@@ -1,0 +1,85 @@
+CREATE DATABASE  IF NOT EXISTS `incubator` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `incubator`;
+-- MySQL dump 10.13  Distrib 5.6.24, for Win64 (x86_64)
+--
+-- Host: localhost    Database: incubator
+-- ------------------------------------------------------
+-- Server version	5.6.26-log
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `incubator`
+--
+
+DROP TABLE IF EXISTS `incubator`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `incubator` (
+  `INCUBATOR_NUMBER` int(11) NOT NULL AUTO_INCREMENT,
+  `BABY_GENDER` varchar(45) DEFAULT NULL,
+  `WEIGHT` decimal(8,2) DEFAULT NULL,
+  `SKIN_COLOUR` varchar(45) DEFAULT NULL,
+  `PATIENT_ID` int(11) NOT NULL,
+  `EMPLOYEE_ID` int(11) NOT NULL,
+  PRIMARY KEY (`INCUBATOR_NUMBER`,`PATIENT_ID`,`EMPLOYEE_ID`),
+  KEY `PATIENT_IDINC_idx` (`PATIENT_ID`),
+  KEY `EMPLOYEE_ID_idx` (`EMPLOYEE_ID`),
+  CONSTRAINT `EMPLOYEE_ID` FOREIGN KEY (`EMPLOYEE_ID`) REFERENCES `employee` (`EMPLOYEE_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `PATIENT_IDINC` FOREIGN KEY (`PATIENT_ID`) REFERENCES `patient` (`PATIENT_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `incubator`
+--
+
+LOCK TABLES `incubator` WRITE;
+/*!40000 ALTER TABLE `incubator` DISABLE KEYS */;
+START TRANSACTION;
+SAVEPOINT savepoint4;
+INSERT INTO `incubator` VALUES (1,'MALE',2000.00,'NORMAL',1,6),(2,'FEMALE',1890.00,'NORMAL',2,7),(3,'MALE',1900.00,'NORMAL',3,8),(4,'FEMALE',1985.00,'NORMAL',4,9),(5,'MALE',2000.00,'NORMAL',5,10),(6,'FEMALE',2010.00,'NORMAL',6,6),(7,'MALE',2100.00,'NORMAL',7,7),(8,'FEMALE',1900.00,'NORMAL',8,8),(9,'MALE',2000.00,'NORMAL',9,9),(10,'FEMALE',1890.00,'NORMAL',10,10),(11,'MALE',1900.00,'NORMAL',11,6),(12,'FEMALE',1985.00,'NORMAL',12,7),(13,'MALE',2000.00,'NORMAL',13,8),(14,'FEMALE',2010.00,'ABNORMAL',14,9),(15,'MALE',2100.00,'ABNORMAL',15,10),(16,'FEMALE',1900.00,'ABNORMAL',16,6),(17,'MALE',2150.00,'NORMAL',17,7),(18,'FEMALE',1995.00,'NORMAL',18,8),(19,'MALE',2170.00,'NORMAL',19,9),(20,'FEMALE',2200.00,'NORMAL',20,10);
+COMMIT;
+SELECT *FROM `incubator`;
+/*!40000 ALTER TABLE `incubator` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `DeleteTrig` BEFORE DELETE
+	ON `INCUBATOR`.`INCUBATOR` 
+	FOR EACH ROW 
+BEGIN	
+		DELETE FROM `INCUBATOR`.`DATA_COLLECTED` WHERE `WEIGHT`>2500; 
+	END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2016-04-27  4:42:46
